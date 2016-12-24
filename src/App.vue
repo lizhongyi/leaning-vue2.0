@@ -7,26 +7,29 @@
 </template>
 
 <script>
-import appHeader from './App-header'
-import appFooter from './App-footer'
-export default {
-  name: 'app',
-  components: {
-    appHeader,
-	appFooter
-	
-  }
-}
+    import appHeader from './App-header'
+    import appFooter from './App-footer'
+    export default {
+        name: 'app',
+        components: {
+            appHeader,
+            appFooter
+
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.u-link--Active{ color:#ff0000}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
+    
+    .u-link--Active {
+        color: #ff0000
+    }
 </style>
