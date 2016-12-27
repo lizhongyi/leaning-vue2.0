@@ -2,6 +2,7 @@
   <div class="helslo">
    <router-link to="/" exact> home</router-link>
    <router-link to="/article" exact> article</router-link>
+   <router-link to="/user" exact> user</router-link>
   </div>
 </template>
 

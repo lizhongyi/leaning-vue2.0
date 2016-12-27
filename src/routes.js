@@ -1,6 +1,9 @@
 // 导入之前写好的两个模板
 import Home from './components/Home.vue'
 import Article from './components/Article.vue'
+import userHome from './components/user/user-home.vue'
+import userIndex from './components/user/user-index.vue'
+import userRecommend from './components/user/user-recommend.vue'
 
 // 编写路由集合
 const routes = [{
@@ -20,6 +23,16 @@ const routes = [{
             name: 'ArticleDetail',
             path: '/article/detail/:id',
             component: require('./components/Article-detail.vue')
+        },
+        {
+            path: '/user',
+            component: userIndex,
+            children: [
+                // 当 /user/:id 匹配成功，
+                // UserHome 会被渲染在 User 的 <router-view> 中
+                { path: '/user/recommend', component: userRecommend },
+                { path: '/user/:id', component: userHome },
+            ]
         }
     ]
     // 导出路由集合
