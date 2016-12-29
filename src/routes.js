@@ -25,6 +25,11 @@ const routes = [{
             component: require('./components/Article-detail.vue')
         },
         {
+            name: 'Login',
+            path: '/login',
+            component: require('./components/user/login.vue')
+        },
+        {
             path: '/user',
             component: userIndex,
             children: [

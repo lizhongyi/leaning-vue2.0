@@ -1,18 +1,23 @@
 <template>
-  <div class="helslo">
+    <div id="header">
+  <div id="top-menu"><router-link to="/login" class="login-btn">login</router-link><a href="reg" class="reg">sigup</a> </div>
+  <div class="menu">
    <router-link to="/" exact> home</router-link>
    <router-link to="/article" exact> article</router-link>
    <router-link to="/user" exact> user</router-link>
+  </div>
   </div>
 </template>
 
 <script>
     export default {
+        name: "header",
         data() {
             return {
 
             }
         }
+
     }
 </script>
 
