@@ -1,6 +1,6 @@
 <template>
     <div id="header">
-  <div id="top-menu"><router-link to="/login" class="login-btn">login</router-link><a href="reg" class="reg">sigup</a> </div>
+  <div id="top-menu"><router-link to="/login" class="login-btn">login</router-link><a href="reg" class="reg">sigup</a> {{userLoginStatus}}</div>
   <div class="menu">
    <router-link to="/" exact> home</router-link>
    <router-link to="/article" exact> article</router-link>
@@ -10,13 +10,16 @@
 </template>
 
 <script>
+ import {mapGetters} from 'vuex'
     export default {
         name: "header",
         data() {
             return {
 
             }
-        }
+        },computed: {
+            ...mapGetters(['userLoginStatus'])
+        },
 
     }
 </script>

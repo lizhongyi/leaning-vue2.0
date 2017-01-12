@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store/store.js'
+import store from './store'
 import axios from 'axios';
 import API from './api/Rest-api.js'
 window.API = API;

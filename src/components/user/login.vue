@@ -1,11 +1,11 @@
 <template>
     <div id="login">
-<h1 class="user-title">用户登陆{{userLoginStatus}}</h1> 
+<h1 class="user-title">用户登陆</h1> 
 <div class="login-box">
     <form id="user-login" name="user-login">
-        <input type="text" id="username" name="username"/>
-        <input type="text" id="password" name="password"/>
-        <input type="button" value="login" @click="submit()" id="submit"/>
+        <input type="text" id="username" v-model="username" name="username"/>
+        <input type="text" id="password" v-model="password" name="password"/>
+        <input type="button" value="login" @click="userLoginAjax" id="submit"/>
         <div v-if="message.text != null" :class="message.css" id="message">{{ message.text }}</div>
     </from>
 </div>
@@ -15,8 +15,10 @@
 <script>
     import {
         mapState,
-        mapGetters
-    } from 'vuex';
+        mapGetters,
+        mapMutations,
+        mapActions
+    } from 'vuex'
     export default {
         name: 'login',
         data() {
@@ -26,24 +28,32 @@
                 message: {
                     text: null,
                     css: null
-                },
-                formData: {}
+                }
             }
         },
         created: function() {
 
         },
         computed: {
-            ...mapGetters(['userLoginStatus'])
+            ...mapState({
+                state: ({
+                    Login
+                }) => Login,
+                mapStateLogin: ({
+                    Login
+                }) => Login.userLogin
+            }),
         },
         methods: {
             validate: function() {
-                if (document.querySelector("#username").value && document.querySelector("#password").value) {
-                    let data = {};
-                    data.userName = document.querySelector("#username").value;
-                    data.password = document.querySelector("#password").value;
-                    this.formData = JSON.stringify(data);
-                    return true;
+                if (this.username && this.password) {
+                    var data = {
+                        userName: this.username,
+                        password: this.password
+                    };
+                    console.log(data);
+                    this.submit(JSON.stringify(data));
+
                 } else {
                     this.message.text = "please input right！";
                     this.message.css = 'error';
@@ -51,36 +61,40 @@
                 }
 
             },
-            submit: function() {
-                if (!this.validate()) return false;
+            submit: function(data) {
+                // if(!data) return false;
+                // this.message.text = "login ...";
+                // this.message.css = null;
+                // var $this = this;
+                // let callback = {
+                //     success: function(data) {
+                //         var result = data.data;
+                //         if (result.statusCode == 200) {
+                //             $this.message.text = "login success!";
+                //             $this.$store.userLogin = true;
+                //             setTimeout(() => {
+                //                 $this.message.text = null;
+                //             }, 2000)
+                //         } else {
+                //             $this.message.text = result.message;
+                //             $this.message.css = 'error';
+                //         }
+                //     },
+                //     error: function(data) {
+                //         console.log(data);
+                //     }
+                // }
+                // let apiURL = API.makeApiUrl('/api/user/login', {
 
-                this.message.text = "login ...";
-                this.message.css = null;
-                var $this = this;
-                let callback = {
-                    success: function(data) {
-                        var result = data.data;
-                        if (result.statusCode == 200) {
-                            $this.message = "login success!";
-                            setTimeout(() => {
-                                $this.message.text = null;
-                            }, 2000)
-                        } else {
-                            $this.message.text = result.message;
-                            $this.message.css = 'error';
-                        }
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                }
-                let apiURL = API.makeApiUrl('/api/user/login', {
+                // });
+                // ajax.post(apiURL, data).then(callback.success).catch(function(err) {
+                //     console.log(err);
+                // })
 
-                });
-                ajax.post(apiURL, this.formData).then(callback.success).catch(function(err) {
-                    console.log(err);
-                })
-            }
+                this.$store.dispatch('UserLogin', this.user);
+            },
+            ...mapMutations(['USER__VUEX_lOGIN']),
+            ...mapActions(['userLoginAjax'])
 
 
         }

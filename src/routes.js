@@ -39,6 +39,7 @@ const routes = [{
                 { path: '/user/:id', component: userHome },
             ]
         }
+        
     ]
     // 导出路由集合
 export default routes
