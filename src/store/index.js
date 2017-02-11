@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Login from './user/Login'
+import Login from './modules/Login'
 import actions from './actions'
 import getters from './getters'
 

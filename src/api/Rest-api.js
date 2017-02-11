@@ -1,3 +1,6 @@
+import axios from 'axios';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+var ajax = axios;
 var restApi = {
 
     //登录
@@ -294,6 +297,18 @@ var restApi = {
         }
 
         return url;
+    },
+    get: function(api_url) {
+
+        return ajax.get(api_url);
+
+    },
+    post: function(api_url, data) {
+        return ajax.post(api_url, data);
+    },
+    userlogin: function(data) {
+
+        return ajax.post(this.login.url, data);
     }
 
 }

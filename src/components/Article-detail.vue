@@ -34,7 +34,7 @@
                 let apiURL = API.makeApiUrl(API.getPost.url, {
                     postId: id
                 });
-                ajax.get(apiURL).then(callback.success).catch(function(err) {
+                API.get(apiURL).then(callback.success).catch(function(err) {
                     console.log(err);
                 })
             }

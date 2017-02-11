@@ -34,7 +34,7 @@
                 let apiURL = API.makeApiUrl(API.getArticleList.url, {
                     tag: "格隆汇"
                 });
-                ajax.get(apiURL).then(callback.success).catch(function(err) {
+                API.get(apiURL).then(callback.success).catch(function(err) {
                     console.log(err);
                 })
             }
