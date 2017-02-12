@@ -2,7 +2,7 @@
  <div id="app">
       <app-header></app-header>
       <router-view></router-view>
-	  <app-footer></app-footer>
+	  <app-footer v-show="show_footer()"></app-footer>
   </div> 	  
 </template>
 
@@ -15,7 +15,25 @@
             appHeader,
             appFooter
 
+        },
+        methods: {
+            show_footer: function() {
+                if (this.$route.name != 'Login') {
+                    return true
+                } else {
+                    return false;
+                }
+            },
+            show_header: function() {
+                if (this.$route.name != 'Login') {
+                    return true
+                } else {
+                    return false;
+                }
+            }
         }
+
+
     }
 </script>
 

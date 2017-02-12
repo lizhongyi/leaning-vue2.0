@@ -6,7 +6,7 @@
         <input type="text" id="username" v-model="user.userName" name="username"/>
         <input type="text" id="password" v-model="user.password" name="password"/>
         <input type="button" value="login" @click="submit" id="submit"/>
-        <div v-if="userLoginMessage.text != null" :class="userLoginMessage.css" id="message">{{ userLoginMessage.text}}</div>
+        <div :class="message.css" id="login_message">{{ message.text}}</div>
     </from>
 </div>
 </div>
@@ -27,6 +27,11 @@
                     userName: null,
                     password: null,
 
+                },
+                message: {
+                    text: null,
+                    css: null
+
                 }
             }
         },
@@ -42,26 +47,36 @@
                     Login
                 }) => Login.token
             }),
-            ...mapGetters(['userLoginMessage'])
+            ...mapGetters([
+                'userLoginInfo'
+            ])
         },
         methods: {
+            ...mapActions(['userLoginAjax']),
             submit: function() {
-                this.$store.dispatch('userLoginAjax', this.user);
+                if (!this.user.userName || !this.user.password) {
+                    this.message = {
+                        text: '请填写完整',
+                        css: 'error'
+                    }
+                    return;
+                }
+                this.userLoginAjax(this.user);
             }
         }
     }
 </script>
 
 <style>
-    #message {
+    #login_message {
         color: #000;
     }
     
-    #message.error {
+    #login_message.error {
         color: #FF0000;
     }
     
-    #message.success {
+    #login_message.success {
         color: green;
     }
 </style>

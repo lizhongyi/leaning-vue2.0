@@ -1,6 +1,9 @@
 <template>
     <div id="header">
-  <div id="top-menu"><router-link to="/login" class="login-btn">login</router-link><a href="reg" class="reg">sigup</a> {{userLoginStatus}} <div v-if="userLoginStatus == '已登录'"><span @click="userLogout">退出登录</a></div></div>
+  <div id="top-menu">
+    <div v-if="userLoginInfo"><span class="username">{{userLoginInfo.nickname}}</span><span @click="userLogout">退出登录</a></div>
+    <div v-else><router-link to="/login" class="login-btn">login</router-link><a href="reg" class="reg">sigup</a></div>
+    </div>
   <div class="menu">
    <router-link to="/" exact> home</router-link>
    <router-link to="/article" exact> article</router-link>
@@ -32,7 +35,7 @@
                     Login
                 }) => Login.token
             }),
-            ...mapGetters(['userLoginStatus'])
+            ...mapGetters(['userLoginStatus', 'userLoginInfo'])
         },
         methods: {
             ...mapActions(['userLogout'])

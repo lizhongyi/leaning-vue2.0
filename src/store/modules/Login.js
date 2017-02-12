@@ -1,6 +1,6 @@
 import * as types from '../types'
 import api from '../../api/Rest-api.js'
-
+import router from '../../router'
 var isLoggedIn = function() {
     var token = localStorage.getItem('user');
     if (token) {
@@ -8,28 +8,22 @@ var isLoggedIn = function() {
         return JSON.parse(localStorage.getItem('user'))
 
     } else {
+
         return false;
     }
 }
 
+
 const state = {
-    token: isLoggedIn() || null,
-    message: {
-        text: null,
-        css: null
-    }
+    token: isLoggedIn() || null
 }
 const getters = {
-    userLoginStatus: state => state.token ? '已登录' : '未登录',
-    userLoginMessage: state => state.message
+    userLoginInfo: state => state.token
 }
 
 const mutations = {
-    [types.USER__VUEX_LOGIN](state, status = NaN) {
+    [types.USER_LOGIN](state, status = NaN) {
         state.token = isNaN(status) ? !state.token : status
-    },
-    [types.USER__VUEX_lOGIN_MESSAGE](state, status = NaN) {
-        state.message = status
     },
     [types.USER_SIGNIN](state, user) {
         localStorage.setItem('user', JSON.stringify(user));
@@ -38,28 +32,24 @@ const mutations = {
     [types.USER_SIGNOUT](state) {
         localStorage.removeItem('user');
         state.token = null;
+        state.user_login_info = null;
     },
     [types.USER_REG](state, user) {
         localStorage.setItem('user', JSON.stringify(user));
         state.token = user
     }
+
 }
 
 const actions = {
-
     userLoginAjax({ commit }, data) {
-        if (!data.userName || !data.password) {
-            commit(types.USER__VUEX_lOGIN_MESSAGE, { text: '请填写完整', css: 'error' });
-            return;
-        }
         api.userlogin(JSON.stringify(data)).then(function(response) {
                 if (response.data.statusCode == 200) {
-                    commit(types.USER__VUEX_lOGIN_MESSAGE, { text: '登陆成功', css: 'success' });
                     commit(types.USER_SIGNIN, response.data.result.user);
-                    commit(types.USER__VUEX_LOGIN, true);
-
                 } else {
-                    commit(types.USER__VUEX_lOGIN_MESSAGE, { text: '登陆失败', css: 'error' });
+                    //次数原本需要要一个公共的消息插件传递信息暂时先用原生的
+                    document.querySelector("#login_message").innerHTML = response.data.message;
+                    document.querySelector("#login_message").className = 'error';
                 }
             })
             .catch(function(error) {
@@ -71,7 +61,6 @@ const actions = {
                 if (response.data.statusCode == 200) {
                     commit(types.USER_SIGNOUT);
                 }
-
             })
             .catch(function(error) {
                 console.log(error);
