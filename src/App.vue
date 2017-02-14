@@ -2,18 +2,21 @@
  <div id="app">
       <app-header></app-header>
       <router-view></router-view>
+      <bot-menu></bot-menu>
 	  <app-footer v-show="show_footer()"></app-footer>
   </div> 	  
 </template>
 
 <script>
-    import appHeader from './App-header'
-    import appFooter from './App-footer'
+    import appHeader from './components/public/App-header'
+    import appFooter from './components/public/App-footer'
+    import botMenu from './components/public/bot-menu'
     export default {
         name: 'app',
         components: {
             appHeader,
-            appFooter
+            appFooter,
+            botMenu
 
         },
         methods: {
