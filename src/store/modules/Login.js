@@ -27,12 +27,16 @@ const mutations = {
     },
     [types.USER_SIGNIN](state, user) {
         localStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('accessToken', JSON.stringify(user));
         state.token = user
     },
     [types.USER_SIGNOUT](state) {
+        sessionStorage.removeItem("accessToken");
         localStorage.removeItem('user');
         state.token = null;
         state.user_login_info = null;
+        //要检查当前的路由名字如果是需要验证的则必须跳转到登录页面
+
     },
     [types.USER_REG](state, user) {
         localStorage.setItem('user', JSON.stringify(user));
@@ -43,23 +47,18 @@ const mutations = {
 
 const actions = {
     userLoginAjax({ commit }, data) {
-        api.userlogin(JSON.stringify(data)).then(function(response) {
-                if (response.data.statusCode == 200) {
-                    commit(types.USER_SIGNIN, response.data.result.user);
-                } else {
-                    //次数原本需要要一个公共的消息插件传递信息暂时先用原生的
-                    document.querySelector("#login_message").innerHTML = response.data.message;
-                    document.querySelector("#login_message").className = 'error';
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        return api.userlogin(JSON.stringify(data));
     },
-    userLogout({ commit }) {
+    userLogout({ commit }, route) {
+        var route = route;
         api.get(api.logout.url).then(function(response) {
                 if (response.data.statusCode == 200) {
                     commit(types.USER_SIGNOUT);
+
+                    if (route == '/article' || route == '/user') {
+                        router.push('/');
+                    }
+
                 }
             })
             .catch(function(error) {

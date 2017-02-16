@@ -13,10 +13,22 @@ const routes = [{
             meta: {
                 title: '首页'
             },
+
         }, // 这些是常用的
         {
             name: 'Article',
             path: '/article',
+            beforeEnter: (to, from, next) => {
+                if (!sessionStorage.getItem('accessToken')) {
+                    next({
+                        path: '/login',
+                        query: { redirect: to.fullPath }
+                    })
+                } else {
+
+                    next()
+                }
+            },
             component: Article
         },
         {
@@ -32,6 +44,17 @@ const routes = [{
         {
             path: '/user',
             component: userIndex,
+            beforeEnter: (to, from, next) => {
+                if (!sessionStorage.getItem('accessToken')) {
+                    next({
+                        path: '/login',
+                        query: { redirect: to.fullPath }
+                    })
+                } else {
+
+                    next()
+                }
+            },
             children: [
                 // 当 /user/:id 匹配成功，
                 // UserHome 会被渲染在 User 的 <router-view> 中
@@ -39,7 +62,7 @@ const routes = [{
                 { path: '/user/:id', component: userHome },
             ]
         }
-        
+
     ]
     // 导出路由集合
 export default routes
