@@ -1,6 +1,6 @@
 // 导入之前写好的两个模板
 import Home from './components/Home.vue'
-import Article from './components/Article.vue'
+import Article from './components/article/Article.vue'
 import userHome from './components/user/user-home.vue'
 import userIndex from './components/user/user-index.vue'
 import userRecommend from './components/user/user-recommend.vue'
@@ -34,12 +34,17 @@ const routes = [{
         {
             name: 'ArticleDetail',
             path: '/article/detail/:id',
-            component: require('./components/Article-detail.vue')
+            component: require('./components/article/Article-detail.vue')
         },
         {
             name: 'Login',
             path: '/login',
             component: require('./components/user/login.vue')
+        },
+         {
+            name: 'Dtb',
+            path: '/dtb',
+            component: require('./components/dtb/Dtb-list.vue')
         },
         {
             path: '/user',
