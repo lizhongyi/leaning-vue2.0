@@ -69,14 +69,12 @@
                             if (self.$route.path == '') {
                                 self.$router.push('/user')
                             } else {
-
                                 self.$router.push(self.$route.query.redirect);
                             }
-
                         } else {
                             //次数原本需要要一个公共的消息插件传递信息暂时先用原生的
-                            document.querySelector("#login_message").innerHTML = response.data.message;
-                            document.querySelector("#login_message").className = 'error';
+                            self.message.text = response.data.message;
+                            self.message.css = 'error';
                         }
                     })
                     .catch(function(error) {
