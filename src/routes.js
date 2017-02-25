@@ -18,17 +18,17 @@ const routes = [{
         {
             name: 'Article',
             path: '/article',
-            beforeEnter: (to, from, next) => {
-                if (!sessionStorage.getItem('accessToken')) {
-                    next({
-                        path: '/login',
-                        query: { redirect: to.fullPath }
-                    })
-                } else {
+            // beforeEnter: (to, from, next) => {
+            //     if (!sessionStorage.getItem('accessToken')) {
+            //         next({
+            //             path: '/login',
+            //             query: { redirect: to.fullPath }
+            //         })
+            //     } else {
 
-                    next()
-                }
-            },
+            //         next()
+            //     }
+            // },
             component: Article
         },
         {
@@ -41,7 +41,7 @@ const routes = [{
             path: '/login',
             component: require('./components/user/login.vue')
         },
-         {
+        {
             name: 'Dtb',
             path: '/dtb',
             component: require('./components/dtb/Dtb-list.vue')

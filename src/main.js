@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import API from './api/Rest-api.js'
+import 'babel-polyfill'
 window.API = API;
 new Vue({
     router,
