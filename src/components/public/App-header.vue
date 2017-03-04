@@ -1,7 +1,7 @@
 <template>
-    <div id="header">
+<div id="header">
   <div id="top-menu">
-    <div v-if="userLoginInfo"><span class="username">{{userLoginInfo.nickname}}</span><span @click="userLogout($route.path)">退出登录</a></div>
+    <div v-if="userLoginInfo"><span class="username">{{userLoginInfo.nickname}}</span><span @click="userLogout($route.path)">退出登录</a></span></div>
     <div v-else><router-link to="/login" class="login-btn">login</router-link><router-link to="/reg" class="login-btn">reg</router-link></div>
     </div>
   <div class="menu">

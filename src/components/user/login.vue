@@ -7,7 +7,7 @@
         <input type="text" id="password" v-model="user.password" name="password"/>
         <input type="button" value="login" @click="submit" id="submit"/>
         <div :class="message.css" id="login_message">{{ message.text}}</div>
-    </from>
+    </form>
 </div>
 </div>
 </template>
@@ -18,7 +18,7 @@
         mapGetters,
         mapMutations,
         mapActions
-    } from 'vuex'
+    } from 'vuex';
     export default {
         name: 'login',
         data() {
@@ -79,7 +79,7 @@
                     })
                     .catch(function(error) {
                         console.log(error);
-                    });;
+                    });
             }
         }
     }
